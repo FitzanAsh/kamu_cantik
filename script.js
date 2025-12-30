@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <div class="landscape-card card-right">
                 <div class="card-inner">
-                    <img src="assets/foto6.png" alt="Foto">
+                    <img src="assets/foto6.jpg" alt="Foto">
                 </div>
             </div>
         `;
