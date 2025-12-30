@@ -1,0 +1,688 @@
+:root {
+    --primary-color: #ff9a9e;
+    --secondary-color: #fecfef;
+    --text-color: #fff;
+    --accent-color: #ff4757;
+    --glass-bg: rgba(255, 255, 255, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #fbc2eb);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    height: 100vh;
+    overflow: hidden;
+    color: var(--text-color);
+}
+
+/* Background Gradients */
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Particle Animation */
+.background-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.floating-heart {
+    position: absolute;
+    bottom: -10%;
+    font-size: 2rem;
+    animation: floatUp linear infinite;
+    opacity: 0.6;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateY(-110vh) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Page Layout */
+.page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    transition: opacity 1s ease, filter 1s ease;
+    z-index: 10;
+}
+
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+    filter: blur(10px);
+}
+
+.visible {
+    opacity: 1;
+    pointer-events: auto;
+    z-index: 10;
+    filter: blur(0);
+}
+
+.content-wrapper {
+    padding: 20px;
+    z-index: 2;
+    width: 100%;
+    max-width: 400px;
+    /* Mobile safe width */
+}
+
+/* Typography */
+h1 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3.5rem;
+    margin-bottom: 50px;
+    /* Increased gap */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-40px);
+    /* Move text higher */
+}
+
+.highlight {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+    opacity: 0.9;
+}
+
+/* CTA Button */
+.cta-btn {
+    background: white;
+    color: var(--primary-color);
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: pulse 2s infinite;
+}
+
+.cta-btn:active {
+    transform: scale(0.95);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+}
+
+/* Animations Logic */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 1s forwards;
+}
+
+.delay-1 {
+    animation-delay: 0.5s;
+}
+
+.delay-2 {
+    animation-delay: 1s;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Page 2 Styles - Three.js Container */
+#three-container {
+    width: 300px;
+    height: 400px;
+    margin: 0 auto 30px;
+    position: relative;
+}
+
+.photo-frame {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(135deg, #ffe0e9 0%, #ffd6e0 50%, #ffb6c1 100%);
+    /* Pretty gradient as placeholder */
+    border: 2px solid #fff;
+    backface-visibility: visible;
+    /* Shows the back when rotated */
+    box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+/* Add a decorative heart in center of empty frame */
+.photo-frame::before {
+    content: '🤍';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    opacity: 0.5;
+}
+
+.rotating-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+    /* Hide image for now as requested */
+}
+
+/* 3D Animation */
+.rise-spin {
+    animation: riseAndSpin 3s ease-out forwards, flip3D 6s ease-in-out infinite 3s;
+}
+
+@keyframes riseAndSpin {
+    0% {
+        opacity: 0;
+        transform: translateY(100vh) rotateX(20deg) rotateY(180deg);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translateY(-20px) rotateX(5deg) rotateY(-10deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0) rotateY(0);
+    }
+}
+
+/* Continuous 360° flip on Y-axis - shows front and back */
+@keyframes flip3D {
+    0% {
+        transform: rotateY(0deg);
+    }
+
+    50% {
+        transform: rotateY(180deg);
+    }
+
+    100% {
+        transform: rotateY(360deg);
+    }
+}
+
+.lyrics-box {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    pointer-events: none;
+}
+
+.lyric-line {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6rem;
+    margin: 10px 0;
+    opacity: 0;
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Animation variant 1: Slide from bottom */
+.lyric-line.anim-up {
+    transform: translateY(50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.lyric-line.anim-up.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animation variant 2: Slide from left */
+.lyric-line.anim-left {
+    transform: translateX(-100px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.lyric-line.anim-left.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Animation variant 3: Slide from right */
+.lyric-line.anim-right {
+    transform: translateX(100px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.lyric-line.anim-right.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Animation variant 4: Zoom in */
+.lyric-line.anim-zoom {
+    transform: scale(0.3);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.lyric-line.anim-zoom.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Animation variant 5: Float down with rotation */
+.lyric-line.anim-float {
+    transform: translateY(-30px) rotate(-5deg);
+    transition: opacity 1s ease, transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.lyric-line.anim-float.active {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+}
+
+/* Animation variant 6: Blur fade in */
+.lyric-line.anim-blur {
+    transform: scale(1.2);
+    filter: blur(10px);
+    transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
+}
+
+.lyric-line.anim-blur.active {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0);
+}
+
+.lyric-line.highlight-lyric {
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+/* Position variants */
+.lyric-line.pos-top {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.lyric-line.pos-center {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.lyric-line.pos-bottom {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Fix position after animation */
+.lyric-line.pos-top.active {
+    transform: translateX(-50%) translateY(0);
+}
+
+.lyric-line.pos-center.active {
+    transform: translateX(-50%) translateY(0);
+}
+
+.lyric-line.pos-bottom.active {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Override transforms for left/right animations at different positions */
+.lyric-line.anim-left.pos-top {
+    transform: translateX(-150px);
+    top: 15%;
+}
+
+.lyric-line.anim-left.pos-center {
+    transform: translateX(-150px);
+    top: 45%;
+}
+
+.lyric-line.anim-left.pos-bottom {
+    transform: translateX(-150px);
+    bottom: 15%;
+    top: auto;
+}
+
+.lyric-line.anim-right.pos-top {
+    transform: translateX(150px);
+    top: 15%;
+}
+
+.lyric-line.anim-right.pos-center {
+    transform: translateX(150px);
+    top: 45%;
+}
+
+.lyric-line.anim-right.pos-bottom {
+    transform: translateX(150px);
+    bottom: 15%;
+    top: auto;
+}
+
+.lyric-line.anim-left.active,
+.lyric-line.anim-right.active {
+    transform: translateX(-50%);
+}
+
+.music-controls {
+    margin-top: 20px;
+}
+
+.control-btn {
+    background: var(--glass-bg);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: background 0.3s;
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Transition Animations */
+.zoom-in {
+    animation: zoomIn 1.5s ease forwards;
+}
+
+@keyframes zoomIn {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Second Photo Card (appears after lyrics) */
+#photo-card {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 200px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    opacity: 0;
+    transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 100;
+}
+
+#photo-card.visible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    animation: floatCardCenter 4s ease-in-out infinite 1s;
+}
+
+@keyframes floatCardCenter {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%);
+    }
+
+    50% {
+        transform: translate(-50%, calc(-50% - 15px));
+    }
+}
+
+/* Intermediate Card (Gap Filler) */
+#intermediate-card {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%) scale(0.8) rotate(-5deg);
+    width: 200px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 40;
+    /* Lower z-index than lyrics/final card */
+    pointer-events: none;
+}
+
+#intermediate-card .photo-inner {
+    height: 250px;
+}
+
+#intermediate-card.visible {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1) rotate(-5deg);
+    animation: floatCardIntermediate 4s ease-in-out infinite;
+}
+
+@keyframes floatCardIntermediate {
+
+    0%,
+    100% {
+        transform: translate(-50%, -50%) rotate(-5deg);
+    }
+
+    50% {
+        transform: translate(-50%, calc(-50% - 15px)) rotate(-5deg);
+    }
+}
+
+@keyframes floatCard {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+.photo-inner {
+    width: 100%;
+    height: 250px;
+    background: linear-gradient(135deg, #ffe0e9 0%, #ffd6e0 50%, #ffb6c1 100%);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.heart-overlay {
+    position: absolute;
+    font-size: 3rem;
+    opacity: 0.6;
+}
+
+.photo-caption {
+    margin-top: 15px;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.4rem;
+    color: #ff6b8a;
+    text-shadow: none;
+}
+
+/* ============================================
+   LANDSCAPE CARDS (Second set, swipe from left/right)
+   ============================================ */
+#landscape-cards {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 60px 20px;
+    pointer-events: none;
+    z-index: 50;
+}
+
+.landscape-card {
+    width: 280px;
+    height: 160px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    opacity: 0;
+    transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.landscape-card .card-inner {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ffe0e9 0%, #ffd6e0 50%, #ffb6c1 100%);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.landscape-card .card-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Top card - comes from left */
+.landscape-card.card-left {
+    align-self: flex-start;
+    transform: translateX(-150%);
+}
+
+/* Bottom card - comes from right */
+.landscape-card.card-right {
+    align-self: flex-end;
+    transform: translateX(150%);
+}
+
+/* Entrance animation - swipe in first, then float */
+#landscape-cards.visible .landscape-card.card-left {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0s;
+}
+
+#landscape-cards.visible .landscape-card.card-right {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.3s;
+    /* Stagger effect */
+}
+
+/* Add floating after entrance (using animation-delay) */
+#landscape-cards.visible .landscape-card {
+    animation: floatHorizontal 4s ease-in-out infinite;
+    animation-delay: 1.5s;
+    /* Start floating after swipe completes */
+}
+
+@keyframes floatHorizontal {
+
+    0%,
+    100% {
+        transform: translateX(0) translateY(0);
+    }
+
+    50% {
+        transform: translateX(10px) translateY(-10px);
+    }
+}
+
+/* Exit animation */
+#landscape-cards.exiting .landscape-card.card-left {
+    opacity: 0;
+    transform: translateX(-150%);
+}
+
+#landscape-cards.exiting .landscape-card.card-right {
+    opacity: 0;
+    transform: translateX(150%);
+}

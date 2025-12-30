@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Untuk Kamu, Putri</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@300;400;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Background Elements -->
+    <div class="background-animation">
+        <div class="floating-heart" style="left: 10%; animation-duration: 6s; animation-delay: 0s;">🤍</div>
+        <div class="floating-heart" style="left: 30%; animation-duration: 8s; animation-delay: 2s;">❤️</div>
+        <div class="floating-heart" style="left: 70%; animation-duration: 7s; animation-delay: 1s;">🤍</div>
+        <div class="floating-heart" style="left: 50%; animation-duration: 9s; animation-delay: 3s;">🩷</div>
+        <div class="floating-heart" style="left: 85%; animation-duration: 6s; animation-delay: 4s;">❤️</div>
+    </div>
+
+    <!-- PAGE 1: LANDING -->
+    <section id="page-1" class="page visible">
+        <div class="content-wrapper">
+            <h1 class="fade-in-up">Untuk Kamu, <br> <span class="highlight">Putri</span></h1>
+
+            <button id="enter-btn" class="cta-btn fade-in-up delay-2">
+                Tap 🤍
+            </button>
+        </div>
+    </section>
+
+    <!-- PAGE 2: LYRICS -->
+    <section id="page-2" class="page hidden">
+        <div class="content-wrapper">
+            <!-- Three.js 3D Card Container -->
+            <div id="three-container"></div>
+
+            <!-- Lyrics Container -->
+            <div id="lyrics-container" class="lyrics-box"></div>
+        </div>
+    </section>
+
+    <!-- Hidden Audio Element -->
+    <audio id="bg-music" loop>
+        <source src="assets/Sound.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
